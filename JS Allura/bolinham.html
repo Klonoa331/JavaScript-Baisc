@@ -1,0 +1,51 @@
+<canvas width="600" height="400">  </canvas>
+
+<script>
+
+	var tela = document.querySelector("canvas");
+	var pincel = tela.getContext("2d");
+
+	pincel.fillStyle = "lightgrey";
+	pincel.fillRect(0, 0, 600, 400);
+
+
+var cores = ['red', 'blue', 'green', 'yellow'];
+var indicecorAtual = 0;
+var tamanho = 10;
+	function exibeBola(evento) {
+        if (evento.shiftKey == true) {
+            if(tamanho  <= 40){
+                tamanho = tamanho + 10;
+            }
+            
+        }
+        if (evento.altKey == true){
+            if(tamanho >= 10){
+                tamanho = tamanho - 5;
+            }
+        }
+        var x = evento.pageX - tela.offsetLeft;
+        var y = evento.pageY - tela.offsetTop; 
+        pincel.fillStyle = cores[indicecorAtual];
+        pincel.beginPath();
+        pincel.arc(x, y, tamanho, 0, 2 * 3.14);
+        pincel.fill();
+        //alert(x + ' Cliquei e ' + y);
+
+    }
+
+    tela.onclick = exibeBola;
+
+    function mudaCor() {
+
+        indicecorAtual++;
+        if (indicecorAtual >= cores.length) {
+            indicecorAtual = 0;
+        }
+        return false; // para não exibir o menu padrão do canvas
+    }
+
+
+    tela.oncontextmenu = mudaCor;
+
+</script>
